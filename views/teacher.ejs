@@ -1,0 +1,223 @@
+<html><head>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+</head><body><br>
+
+<!-- <div class="row">
+
+    <div class="col s4">
+        <select ng-model="selectedSubject" ng-options="option for option in subjects">
+            <option value="" disabled="" selected="">Choose Subject</option>
+        </select>
+    </div>
+    <div class="col s2">
+         <select ng-model="selectedCourse" ng-options="option for option in course">
+            <option value="" disabled="" selected="">Choose Course</option>
+        </select>
+    </div>
+    <div class="col s2">
+        <select ng-model="selectedStream" ng-options="option for option in stream">
+            <option value="" disabled="" selected="">Choose Stream</option>
+        </select>
+    </div>
+    <div class="col s2">
+        <select ng-model="selectedSem" ng-options="option for option in semester">
+            <option value="" disabled="" selected="">Choose Semester</option>
+        </select>
+    </div>
+    <div class="col s2">
+        <select ng-model="selectedYear" ng-options="option for option in years">
+            <option value="" disabled="" selected=""> Choose Year </option>
+        </select>
+    </div>
+</div> -->
+<center>
+    <h1><strong> Guru Gobind Singh Indraprastha University</strong></h1>
+    <h1 ><strong>Faculty Report</strong> </h1>
+    <h3><strong>(2017-2018)</strong></h3>
+    <img src="http://localhost:5000/logo.jpg"  style="height:400px;width:400px;display:centre">
+    <h2><strong>Faculty Name</strong> : <%=results[0].name%> </h2>
+    <h2> <strong>Faculty Id</strong> : <%=results[0].instructor_code%></h2>
+    <img src="http://localhost:5000/<%=results[0].instructor_code%>.jpg"  style="height:200px;width:200px;">
+
+</centre>
+
+<% var i = 1;%>
+<% results.forEach(function(result){%>
+  <div style="page-break-before:always">&nbsp;</div>
+<!-- <div style="page-break-before:always">some text</div>
+<div style="page-break-after:always">some text</div>
+<div style="page-break-inside:avoid">some text</div> -->
+<hr>
+  <div>
+    <h4><strong>Subject Code</strong> : <%=result.subject_code%> &nbsp <strong>Subject Name</strong> : <%=result.subject_name%> &nbsp <br><br> <strong>Course </strong>: <%=result.course%> &nbsp <strong>Stream</strong>: <%=result.stream%> &nbsp <strong>Semester</strong> : <%=result.semester%> &nbsp <strong>Type</strong> : <%=result.type%></p>
+
+          </div>
+          <hr>
+          <table class="table table-striped">
+
+              <thead class="thead-dark">
+                  <tr>
+                      <th>Attributes</th>
+                      <th>1</th>
+                      <th>2</th>
+                      <th>3</th>
+                      <th>4</th>
+                      <th>5</th>
+                      <th>Total</th>
+                  </tr>
+                </thead>
+            <tbody>
+              <% var scores=[] %>
+              <%var sum =0 %>
+              <% var stud %>
+                <% if(result.type == 'Theory'){%>
+                  <%for(var i=1;i<=15;i++){%>
+                      <%  scores = result['at_'+i].split(",")%>
+                      <tr>
+                        <th><spam><%= theory[i] %></spam></th>
+                        <td><%=scores[1]%></td>
+                        <td><%=scores[2]%></td>
+                        <td><%=scores[3]%></td>
+                        <td><%=scores[4]%></td>
+                        <td><%=scores[5]%></td>
+                        <%sum += scores[1]*1 + scores[2]*2 + scores[3]*3 + scores[4]*4  + scores[5]*5 %>
+                        <td><%=scores[1]*1 + scores[2]*2 + scores[3]*3 + scores[4]*4  + scores[5]*5 %></td>
+                      </tr>
+                        <% }%>
+                      <tr>
+                        <%stud = Number(scores[1]) +Number(scores[2]) +Number(scores[3]) +Number(scores[4]) +Number(scores[5])%>
+                          <td><span class="small-title">No of Students Evaluated  = </span><%=stud%></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td><span class="small-title">Total  = </span> <%=sum %></td>
+                      </tr>
+
+                    <% } %>
+                    <% if(result.type == 'Practical'){%>
+
+                      <%for(var i=1;i<=8;i++){%>
+                          <%  scores = result['at_'+i].split(",")%>
+                          <tr>
+                            <th><%= practical[i] %></th>
+                            <td><%=scores[1]%></td>
+                            <td><%=scores[2]%></td>
+                            <td><%=scores[3]%></td>
+                            <td><%=scores[4]%></td>
+                            <td><%=scores[5]%></td>
+                            <%sum += scores[1]*1 + scores[2]*2 + scores[3]*3 + scores[4]*4  + scores[5]*5 %>
+                            <td><%=scores[1]*1 + scores[2]*2 + scores[3]*3 + scores[4]*4  + scores[5]*5 %></td>
+                          </tr>
+                            <% }%>
+                          <tr>
+
+                              <%stud = Number(scores[1]) +Number(scores[2]) +Number(scores[3]) +Number(scores[4]) +Number(scores[5])%>
+                              <td><span class="small-title">No of Students Evaluated  = </span><%=stud%></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td><span class="small-title">Total = </span> <%=sum %></td>
+                          </tr>
+
+
+                        <% } %>
+                        </tbody>
+                        </table>
+                        <div class="center">
+                        <div class="large-title">PERCENTAGE</div>
+                        <%if(result.type =='Theory'){%>
+
+                          <div class="pct"><%= ((sum / (stud* 75)) * 100 ).toFixed(2)%></div>
+                        <%} else if(result.type=='Practical') {%>
+
+                          <div class="pct"><%= ((sum / (stud * 40)) * 100 ).toFixed(2)%></div>
+                        <%}%>
+                        </div>
+
+  </div>
+<% })%>
+</div>
+<br>
+
+<style type="text/css">
+    .select-wrapper input.select-dropdown {
+    position: relative;
+    cursor: pointer;
+    background-color: aliceblue;
+    border: none;
+    border-bottom: 0 !important;
+    outline: none;
+    height: 3rem;
+    line-height: 3rem;
+    width: 100%;
+    font-size: 1rem;
+    margin: 0 0 20px 0;
+    padding: 0;
+    display: block;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-indent: 1em;
+}
+td, th {
+    max-width: 200px;
+}
+
+td:nth-child(1) {
+  /* your stuff here */
+  padding-right: 3em;
+}
+
+th:nth-child(n+2):nth-child(-n+6), td:nth-child(n+2):nth-child(-n+6) {
+    text-align: center
+}
+th:nth-child(7), td:nth-child(7) {
+  /* your stuff here */
+  max-width: 90px;
+  text-align: right;
+  padding-right: 2em;
+}
+
+.inforow {
+    display: flex;
+}
+
+.infoelement {
+    flex: 1;
+    text-align: center;
+}
+.select-wrapper span.caret {
+    color: initial;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    height: 10px;
+    margin: auto 0;
+    font-size: 10px;
+    line-height: 10px;
+    z-index: 99;
+    cursor: pointer;
+}
+.large-title {
+    font-weight: 700;
+    font-size: 16px;
+    color: darkcyan;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.5em;
+}
+.pct {
+    font-size: 24px;
+    font-weight: 700;
+}
+</style>
+</body></html>
